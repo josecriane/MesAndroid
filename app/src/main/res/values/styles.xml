@@ -3,6 +3,9 @@
     <!-- Base application theme. -->
     <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
         <!-- Customize your theme here. -->
+        <item name="android:textColor">@color/mes_black</item>
+        <item name="android:textSize">@dimen/base_text_size</item>
+        <item name="android:textColorHint">@color/mes_black</item>
     </style>
 
 </resources>

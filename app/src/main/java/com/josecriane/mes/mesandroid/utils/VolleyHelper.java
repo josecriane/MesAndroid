@@ -11,12 +11,12 @@ import com.android.volley.toolbox.Volley;
  */
 public class VolleyHelper {
 
-    private static String BASE_URL="http://192.168.0.100/api";
+    public static String BASE_URL="http://192.168.0.100:8000/";
     private static VolleyHelper instance;
     private RequestQueue mQueue;
 
     private VolleyHelper(Context context){
-        mQueue = Volley.newRequestQueue(context);
+        mQueue = Volley.newRequestQueue(context.getApplicationContext());
     }
 
     public static VolleyHelper getInstance(Context context) {
@@ -31,7 +31,7 @@ public class VolleyHelper {
         mQueue.add(request);
     }
 
-    public void stopRequest(String TAG) {
+    public void cancelRequest(String TAG) {
         mQueue.cancelAll(TAG);
     }
 }

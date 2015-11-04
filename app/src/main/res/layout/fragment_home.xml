@@ -1,7 +1,37 @@
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.josecriane.mes.mesandroid.activities.HomeActivityFragment">
+    tools:context="com.josecriane.mes.mesandroid.fragments.HomeActivityFragment">
+
+    <TextView
+        android:id="@+id/device_uid_lbl"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/device_uid"/>
+
+    <TextView
+        android:id="@+id/device_uid_txt"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/device_uid_lbl"
+        android:text="@string/mock_device_uid"/>
+
+    <EditText
+        android:id="@+id/device_id_edit"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/device_uid_txt"
+        android:inputType="numberDecimal"
+        android:hint="@string/insert_device_id"/>
+
+
+    <Button
+        android:id="@+id/accept_btn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/device_id_edit"
+        android:text="@string/accept"/>
 
 </RelativeLayout>
