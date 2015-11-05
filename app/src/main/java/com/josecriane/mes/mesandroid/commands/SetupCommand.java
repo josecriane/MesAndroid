@@ -8,10 +8,14 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.JsonRequest;
+import com.google.gson.Gson;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
 import com.josecriane.mes.mesandroid.models.Device;
 import com.josecriane.mes.mesandroid.utils.ICallback;
 import com.josecriane.mes.mesandroid.utils.VolleyHelper;
 
+import org.json.JSONException;
 import org.json.JSONObject;
 
 /**
@@ -20,16 +24,27 @@ import org.json.JSONObject;
 public class SetupCommand extends Command {
 
     private String mUrl;
+    private Device mDevice;
 
     public SetupCommand(Context context, Device device){
         mContext = context.getApplicationContext();
-        mUrl = VolleyHelper.BASE_URL + "devices/" + String.valueOf(device.getId());
+        mDevice = device;
+        mDevice.setConfigured(true);
+        mUrl = device.getDeviceUrl() + "/setup/";
         TAG = "SetupCommand";
     }
 
     @Override
     public void execute() {
-        JsonRequest request = new JsonObjectRequest(Request.Method.PATCH, mUrl, ""
+        Gson gson = new Gson();
+
+        JSONObject json = new JSONObject();
+        try {
+            json = new JSONObject(gson.toJson(mDevice));
+        } catch (JSONException e) {
+            Log.e("JSON", e.toString());
+        }
+        JsonObjectRequest request = new JsonObjectRequest(Request.Method.PATCH, mUrl, json
         , new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject response) {
@@ -38,7 +53,7 @@ public class SetupCommand extends Command {
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                Log.d("SetupCommandError", error.toString());
+                Log.d("SetupCommandError", new String(error.networkResponse.data));
             }
         });
         VolleyHelper.getInstance(mContext).addRequest(request, TAG);

@@ -21,66 +21,68 @@ import java.util.List;
  */
 public class Device {
 
-    private int mId;
-    private Date mCreatedDate;
-    private String mName;
-    private String mPhone;
-    private String mUid;
-    private int mAdministrator;
-    private boolean mConfigured;
-    private List mCommands;
-    private String mToken;
-    private String mTokenGCM;
+    private Integer id;
+    private Date createdDate;
+    private String name;
+    private String phone;
+    private String uid;
+    private Integer administrator;
+    private Boolean configured;
+    private List commands;
+    private String token;
+    private String tokenGCM;
 
-    private String mDeviceUrl = VolleyHelper.BASE_URL+"device/";
+    private transient String mDeviceUrl = VolleyHelper.BASE_URL+"devices/";
 
     public Device(int id, String uid, String tokenGCM){
-        mId = id;
-        mUid = uid;
-        mTokenGCM = tokenGCM;
+        this.id = id;
+        this.uid = uid;
+        this.tokenGCM = tokenGCM;
     }
 
-    public int getId() {
-        return mId;
+    public Integer getId() {
+        return id;
     }
 
     public Date getCreatedDate() {
-        return mCreatedDate;
+        return createdDate;
     }
 
     public String getName() {
-        return mName;
+        return name;
     }
 
     public String getPhone() {
-        return mPhone;
+        return phone;
     }
 
     public String getUid() {
-        return mUid;
+        return uid;
     }
 
-    public int getAdministrator() {
-        return mAdministrator;
+    public Integer getAdministrator() {
+        return administrator;
     }
 
-    public boolean isConfigured() {
-        return mConfigured;
+    public Boolean isConfigured() {
+        return configured;
     }
 
     public List getCommands() {
-        return mCommands;
+        return commands;
     }
 
     public String getToken() {
-        return mToken;
+        return token;
     }
 
     public String getTokenGCM() {
-        return mTokenGCM;
+        return tokenGCM;
     }
 
     public String getDeviceUrl() {
-        return mDeviceUrl;
+        return mDeviceUrl + String.valueOf(this.id);
     }
+
+    public void setConfigured(Boolean configured) { this.configured = configured; }
 }
