@@ -1,10 +1,11 @@
-package com.josecriane.mes.mesandroid.utils;
+package com.josecriane.mes.mesandroid.SimpleGcm;
 
 import android.content.Context;
 import android.os.AsyncTask;
 import android.util.Log;
 
 import com.google.android.gms.gcm.GoogleCloudMessaging;
+import com.josecriane.mes.mesandroid.utils.ICallback;
 
 import java.io.IOException;
 

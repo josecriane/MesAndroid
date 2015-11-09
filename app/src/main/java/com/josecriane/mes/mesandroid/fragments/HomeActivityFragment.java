@@ -14,7 +14,7 @@ import android.widget.TextView;
 import com.josecriane.mes.mesandroid.R;
 import com.josecriane.mes.mesandroid.commands.SetupCommand;
 import com.josecriane.mes.mesandroid.models.Device;
-import com.josecriane.mes.mesandroid.utils.GcmHelper;
+import com.josecriane.mes.mesandroid.SimpleGcm.GcmHelper;
 import com.josecriane.mes.mesandroid.utils.ICallback;
 
 /**
