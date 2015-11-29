@@ -12,7 +12,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import com.josecriane.mes.mesandroid.R;
-import com.josecriane.mes.mesandroid.commands.SetupCommand;
+import com.josecriane.mes.mesandroid.commands.DeviceSetupCommand;
 import com.josecriane.mes.mesandroid.models.Device;
 import com.josecriane.mes.mesandroid.SimpleGcm.GcmHelper;
 import com.josecriane.mes.mesandroid.utils.ICallback;
@@ -48,7 +48,7 @@ public class HomeActivityFragment extends Fragment {
                             //Add (string)obj to persistance as GCM token
                             String tokenGCM = (String)obj;
                             Device device = new Device(Integer.valueOf(mDeviceIdEdt.getText().toString()),Build.SERIAL, tokenGCM);
-                            SetupCommand command = new SetupCommand(getActivity(), device);
+                            DeviceSetupCommand command = new DeviceSetupCommand(getActivity(), device);
                             command.execute();
                         }
 

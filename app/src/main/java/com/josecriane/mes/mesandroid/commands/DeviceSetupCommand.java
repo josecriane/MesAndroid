@@ -1,6 +1,7 @@
 package com.josecriane.mes.mesandroid.commands;
 
 import android.content.Context;
+import android.os.Build;
 import android.util.Log;
 
 import com.android.volley.Request;
@@ -13,49 +14,56 @@ import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import com.josecriane.mes.mesandroid.models.Device;
 import com.josecriane.mes.mesandroid.utils.ICallback;
+import com.josecriane.mes.mesandroid.utils.PersistenceManager;
 import com.josecriane.mes.mesandroid.utils.VolleyHelper;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.HashMap;
+import java.util.Map;
+
 /**
  * Created by sito on 4/11/15.
  */
-public class SetupCommand extends Command {
+public class DeviceSetupCommand extends Command {
 
-    private String mUrl;
     private Device mDevice;
 
-    public SetupCommand(Context context, Device device){
+    public DeviceSetupCommand(Context context, Device device){
         mContext = context.getApplicationContext();
         mDevice = device;
         mDevice.setConfigured(true);
         mUrl = device.getDeviceUrl() + "/setup/";
-        TAG = "SetupCommand";
-    }
+        TAG = "DeviceSetupCommand";
+        mMethod = Request.Method.PATCH;
 
-    @Override
-    public void execute() {
         Gson gson = new Gson();
-
-        JSONObject json = new JSONObject();
+        mJson = new JSONObject();
         try {
-            json = new JSONObject(gson.toJson(mDevice));
+            mJson = new JSONObject(gson.toJson(mDevice));
         } catch (JSONException e) {
             Log.e("JSON", e.toString());
         }
-        JsonObjectRequest request = new JsonObjectRequest(Request.Method.PATCH, mUrl, json
-        , new Response.Listener<JSONObject>() {
-            @Override
-            public void onResponse(JSONObject response) {
-                Log.d("SetupCommandResponse", response.toString());
-            }
-        }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                Log.d("SetupCommandError", new String(error.networkResponse.data));
-            }
-        });
-        VolleyHelper.getInstance(mContext).addRequest(request, TAG);
+    }
+
+
+    @Override
+    public void onSuccess(JSONObject response) {
+        DeviceTokenCommand command = new DeviceTokenCommand(mContext, mDevice);
+        command.execute();
+    }
+
+    @Override
+    public void onError(VolleyError error) {
+
+    }
+
+    @Override
+    public Map<String, String> getCommandHeaders() {
+        HashMap<String, String> headers = new HashMap<String, String>();
+        headers.put("X-TOKEN", Build.SERIAL);
+
+        return headers;
     }
 }

@@ -11,7 +11,7 @@ import com.android.volley.toolbox.Volley;
  */
 public class VolleyHelper {
 
-    public static String BASE_URL="http://192.168.0.100:8000/";
+    public static String BASE_URL="http://192.168.0.27:8000/";
     private static VolleyHelper instance;
     private RequestQueue mQueue;
 
